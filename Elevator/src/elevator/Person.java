@@ -119,10 +119,19 @@ public class Person extends Thread {
     private void movePerson() throws InterruptedException {        
         if (destination == null || destination == location)
             return;
-        
+        Direction direction;
+        if(destination.isAbove(location))   {
+            direction = UP;
+        } else  {
+            direction = DOWN;
+        }
+        location.call(direction);
+        elevator.enter(this, location, direction);
+        elevator.gotoFloor(destination);
+        elevator.exit(this, destination);
         /*=================================================================
          * 
-         * --- TO BE COMPLETED ---
+         * --- COMPLETED ---
          * 
          * Called by the run "method" to move the person to his destination
          * floor.
